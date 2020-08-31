@@ -1,0 +1,23 @@
+############################################
+# Syntax Coloring Map For mbed_like_Timer
+############################################
+
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+
+PlainSerial	KEYWORD1
+StructMem	KEYWORD2
+Int32	    	KEYWORD2
+Float32	    	KEYWORD2
+PlaneTwist 	KEYWORD2
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+
+message_t   KEYWORD2
+
+#######################################
+# Constants (LITERAL1)
+#######################################
