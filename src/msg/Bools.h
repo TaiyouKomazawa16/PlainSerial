@@ -9,6 +9,8 @@
 #ifndef BOOLS_H_
 #define BOOLS_H_
 
+#include <Arduino.h>
+
 #include <stdint.h>
 
 #include "MessageID.h"
@@ -18,9 +20,8 @@
 class Bools : public StructMem
 {
 public:
-
     inline bool val(int i, bool val){
-        bitWrite(&_data.val, i, val);
+        bitWrite(_data.val, i, val);
         return val;
     }
     
