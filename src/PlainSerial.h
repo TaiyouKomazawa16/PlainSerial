@@ -9,8 +9,6 @@
 #ifndef PLAIN_SERIAL_H_
 #define PLAIN_SERIAL_H_
 
-#define FRAME_LEN 4
-
 #include <Arduino.h>
 
 #include <./msg/Structure.h>
@@ -22,28 +20,43 @@ public:
     PlainSerial(HardwareSerial *dev)
     {
         _dev = dev;
+        _str_num = 0;
+        _max_data_size = 0;
     }
     
-    int read(int target_id, StructMem *str)
+    void add_frame(StructMem *str)
     {
-        int size = FRAME_LEN+str->size();
-        if(_dev->available() > size){
+        if(str != NULL &&  _str_num <= STRUCT_MAX_NUM){
+            _str[_str_num] = str;
+            if(_max_data_size < str->size())
+                _max_data_size = str->size();
+            _str_num++;
+        }
+    }
+    
+    int read()
+    {
+        int size = FRAME_LEN+_max_data_size;
+        if(_dev->available() >= size){
             uint8_t check_sum = 0;
             int data_sum = 0;
 
             if (_read_once(&data_sum) != HEADER){
                 return -2;
             }
-            if (_read_once(&data_sum) != target_id){
+            
+            int id = _read_once(&data_sum);
+            
+            if (id >= _str_num){
                 return -3;
             }
-            if (_read_once(&data_sum) != str->msg_id()){
+            if (_read_once(&data_sum) != _str[id]->msg_id()){
                 return -4;
             }
 
-            for(int i = 0; i < str->size(); i++){
+            for(int i = 0; i < _str[id]->size(); i++){
                 uint8_t c;
-                str->ptr()[i] = _read_once(&data_sum);
+                _str[id]->ptr()[i] = _read_once(&data_sum);
             }
 
             check_sum = _dev->read();
@@ -79,6 +92,10 @@ public:
     }
 
 protected:
+    enum{
+        FRAME_LEN       = 4,
+        STRUCT_MAX_NUM  = 5,
+    };
 
     typedef enum ControlCharType{
         HEADER=':',
@@ -86,6 +103,10 @@ protected:
     }ctrl_char_t;
     
 private:
+    StructMem *_str[STRUCT_MAX_NUM];
+    uint8_t _str_num;
+    uint8_t _max_data_size;
+
     HardwareSerial *_dev;
     inline void _write_once(uint8_t c, int *data_sum)
     {

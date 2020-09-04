@@ -13,6 +13,7 @@ typedef enum MessageIDType{
     INT32 =0,
     FLOAT32,
     PLANE_TWIST,
+    BOOLS,
 }message_t;
 
 #endif

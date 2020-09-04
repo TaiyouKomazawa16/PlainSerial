@@ -18,6 +18,15 @@
 class PlaneTwist : public StructMem
 {
 public:
+    PlaneTwist(float x=0, float y=0, float yaw=0){
+        set(x,y,yaw);
+    }
+
+    void set(float x, float y, float yaw){
+        _data.x = x;
+        _data.y = y;
+        _data.yaw = yaw;
+    }
 
     inline float x(float x){
         return _data.x = x;

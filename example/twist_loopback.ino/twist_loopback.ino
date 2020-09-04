@@ -2,19 +2,19 @@
 #include "PlaneTwist.h"
 
 PlaneTwist twist;
-Float32 f;
 PlainSerial uart(&Serial);
 
 void setup()
 {
   Serial.begin(9600);
+  uart.add_frame(&twist);
 }
 
 void loop()
 {
-  if (uart.read(1, &twist) == 0)
+  if (uart.read() == 0)
   {
-    uart.write(1, &twist);
+    uart.write(0, &twist);
   }
   delay(18);
 }
