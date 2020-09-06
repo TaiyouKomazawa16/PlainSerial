@@ -21,7 +21,7 @@ class Bools : public StructMem
 {
 public:
     inline bool set(int bit, bool val){
-        bitWrite(_data.val, i, val);
+        bitWrite(_data.val, bit, val);
         return val;
     }
     
