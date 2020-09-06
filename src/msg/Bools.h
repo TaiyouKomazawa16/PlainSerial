@@ -20,13 +20,13 @@
 class Bools : public StructMem
 {
 public:
-    inline bool val(int i, bool val){
+    inline bool set(int bit, bool val){
         bitWrite(_data.val, i, val);
         return val;
     }
     
-    inline bool val(int i){
-        return bitRead(_data.val, i);
+    inline bool get(int bit){
+        return bitRead(_data.val, bit);
     }
 
     virtual inline int size(){ return MAX_BOOLS_SIZE; }
