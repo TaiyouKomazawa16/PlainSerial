@@ -42,7 +42,7 @@ private:
     };
 
     typedef union _DataFrameType{
-        uint8_t ptr[MAX_INT32_SIZE];
+        uint8_t ptr[MAX_BOOLS_SIZE];
         struct{
             uint8_t val;
         };
