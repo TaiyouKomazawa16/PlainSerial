@@ -14,6 +14,7 @@ typedef enum MessageIDType{
     FLOAT32,
     PLANE_TWIST,
     BOOLS,
+    QUATERNION,
 }message_t;
 
 #endif
