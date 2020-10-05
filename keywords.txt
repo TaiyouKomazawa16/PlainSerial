@@ -12,6 +12,7 @@ Int32	    	KEYWORD2
 Float32	    	KEYWORD2
 PlaneTwist 	KEYWORD2
 Bools		KEYWORD2
+Quaternion KEYWORD2
 
 #######################################
 # Methods and Functions (KEYWORD2)
