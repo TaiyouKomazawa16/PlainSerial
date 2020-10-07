@@ -23,6 +23,11 @@ public:
         _str_num = 0;
         _max_data_size = 0;
     }
+
+    void wait_host(String device_name)
+    {
+        _wait_host(device_name);
+    }
     
     void add_frame(StructMem *str)
     {
@@ -108,6 +113,18 @@ private:
     uint8_t _max_data_size;
 
     HardwareSerial *_dev;
+
+    void _wait_host(String device_name)
+    {
+        char res[3] = {};
+        while(strcmp(res, "OK")){
+            Serial.print(device_name);
+            Serial.print("\n");
+            Serial.readBytesUntil('\n', res, 3);
+            delay(250);
+        }
+    }
+
     inline void _write_once(uint8_t c, int *data_sum)
     {
         _dev->write(c);

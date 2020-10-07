@@ -7,6 +7,7 @@ PlainSerial uart(&Serial);
 void setup()
 {
   Serial.begin(9600);
+  uart.wait_host("test");
   uart.add_frame(&twist);
 }
 
