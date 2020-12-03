@@ -116,12 +116,9 @@ private:
 
     void _wait_host(String device_name)
     {
-        char res[3] = {};
-        while(strcmp(res, "OK")){
-            Serial.print(device_name);
-            Serial.print("\n");
-            Serial.readBytesUntil('\n', res, 3);
-            delay(250);
+        while(!_dev->findUntil("OK", "\n")){
+            _dev->print(device_name);
+            _dev->print("\n");
         }
     }
 
